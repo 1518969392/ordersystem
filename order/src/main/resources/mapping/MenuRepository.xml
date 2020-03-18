@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ordersystem.repository.MenuRepository">
+
+	<resultMap id="menuMap" type="Menu">
+		<id property="id" column="id"/>
+		<result property="name" column="name"/>
+		<result property="price" column="price"/>
+		<result property="flavor" column="flavor"/>
+		<!--使用延迟加载-->
+		<association property="type" select="com.ordersystem.repository.TypeRepository.findById" column="tid"/>
+
+		 <!--&lt;!&ndash;映射type   多对一&ndash;&gt;-->
+		<!--<association property="type" javaType="Type">-->
+			<!--<id property="id" column="tid"/>-->
+			<!--<result property="name" column="tname"/>-->
+		<!--</association>-->
+	</resultMap>
+
+	<select id="findById" resultMap="menuMap">
+		select * from t_menu where id = #{id}
+	</select>
+
+
+</mapper>
